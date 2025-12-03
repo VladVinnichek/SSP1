@@ -51,6 +51,7 @@ CREATE TABLE [dbo].[Cars] (
 
 ### 3. Запуск проекта
 Откройте 11-12lab.sln в Visual Studio
+
 Обязательно необходимо пересобрать решение!!!
 
 Нажмите F5 для запуска
@@ -94,5 +95,6 @@ Entity Framework
 Аутентификация: Windows Authentication
 
 Сервер БД: (localdb)\MSSQLLocalDB
+
 
 
