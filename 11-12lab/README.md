@@ -18,7 +18,7 @@
 
 ### 2. Создание базы данных вручную
 
-#### Способ 1: Через Visual Studio (рекомендуется)
+#### Шаг 1 - создание Базы данных
 1. Откройте проект в Visual Studio
 2. Перейдите в **View → SQL Server Object Explorer** (или нажмите `Ctrl + \, Ctrl + S`)
 3. Нажмите на зеленый плюсик "Add SQL Server"
@@ -29,7 +29,7 @@
 8. Введите имя: `CarsDatabase`
 9. Нажмите OK
 
-#### Способ 2: Через SQL команды
+#### Шаг 2 - создание таблицы
 1. В том же SQL Server Object Explorer
 2. Правой кнопкой на `CarsDatabase` → **New Query**
 3. Вставьте следующий SQL код и выполните (зеленая стрелка):
@@ -51,6 +51,7 @@ CREATE TABLE [dbo].[Cars] (
 
 ### 3. Запуск проекта
 Откройте 11-12lab.sln в Visual Studio
+Обязательно необходимо пересобрать решение!!!
 
 Нажмите F5 для запуска
 
@@ -93,4 +94,5 @@ Entity Framework
 Аутентификация: Windows Authentication
 
 Сервер БД: (localdb)\MSSQLLocalDB
+
 
