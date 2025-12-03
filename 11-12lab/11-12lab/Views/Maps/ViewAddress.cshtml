@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "Просмотр адреса на карте";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h2>Просмотр адреса на карте</h2>
+</div>
+
+@if (!string.IsNullOrEmpty(ViewBag.Address))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Адрес владельца автомобиля</h4>
+                </div>
+                <div class="panel-body">
+                    <p><strong>📍 Адрес:</strong> <span style="font-size: 16px;">@ViewBag.Address</span></p>
+
+                    <!-- Кнопки для разных карт -->
+                    <div class="btn-group" role="group" style="margin-bottom: 20px;">
+                        <button type="button" class="btn btn-primary active" onclick="showGoogleMaps()">Google Карты</button>
+                        <button type="button" class="btn btn-success" onclick="showYandexMaps()">Яндекс Карты</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Контейнер для карты -->
+            <div id="mapContainer">
+                <iframe id="mapFrame" width="100%" height="500" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px;" allowfullscreen=""></iframe>
+            </div>
+
+            <!-- Информационная панель -->
+            <div class="alert alert-info" style="margin-top: 15px;">
+                <h5>💡 Информация:</h5>
+                <p>Для поиска точного местоположения используется адрес: <strong>@ViewBag.Address</strong></p>
+                <p>Вы можете переключаться между Google Картами и Яндекс Картами используя кнопки выше.</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>⚠ Адрес не указан</h4>
+        <p>Не удалось получить адрес для отображения на карте.</p>
+    </div>
+}
+
+<div class="row" style="margin-top: 20px;">
+    <div class="col-md-12">
+        <div class="btn-group">
+            @Html.ActionLink("← Вернуться к списку автомобилей", "Index", "Cars", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("📋 Все карты городов", "ViewMaps", "Maps", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("🏠 На главную", "Index", "Home", null, new { @class = "btn btn-info" })
+        </div>
+    </div>
+</div>
+
+<script>
+    // Функция для кодирования адреса в URL
+    function encodeAddress(address) {
+        return encodeURIComponent(address);
+    }
+
+    // Показать Google Maps
+    function showGoogleMaps() {
+        var address = '@ViewBag.Address';
+        var encodedAddress = encodeAddress(address);
+        var frame = document.getElementById('mapFrame');
+
+        // Используем Google Maps с поиском по адресу
+        frame.src = 'https://maps.google.com/maps?q=' + encodedAddress + '&z=15&output=embed&t=m';
+
+        // Обновляем активную кнопку
+        updateActiveButton('google');
+    }
+
+    // Показать Яндекс Карты
+    function showYandexMaps() {
+        var address = '@ViewBag.Address';
+        var encodedAddress = encodeAddress(address);
+        var frame = document.getElementById('mapFrame');
+
+        // Используем Яндекс Карты с поиском по адресу
+        frame.src = 'https://yandex.ru/map-widget/v1/?text=' + encodedAddress + '&z=15&l=map';
+
+        // Обновляем активную кнопку
+        updateActiveButton('yandex');
+    }
+
+    // Обновление активной кнопки
+    function updateActiveButton(service) {
+        // Сбрасываем все кнопки
+        document.querySelectorAll('.btn-group .btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Активируем выбранную кнопку
+        if (service === 'google') {
+            document.querySelector('.btn-group .btn:nth-child(1)').classList.add('active');
+        } else if (service === 'yandex') {
+            document.querySelector('.btn-group .btn:nth-child(2)').classList.add('active');
+        }
+    }
+
+    // Автоматически показываем Google Maps при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        if ('@ViewBag.Address' !== '') {
+            showGoogleMaps();
+        }
+    });
+</script>
+
+<style>
+    .btn-group .btn {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .btn.active {
+        box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+        font-weight: bold;
+    }
+
+    .panel {
+        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+
+    #mapContainer {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,.1);
+    }
+
+    .btn-primary {
+        background-color: #4285f4;
+        border-color: #4285f4;
+    }
+
+    .btn-success {
+        background-color: #ffcc00;
+        border-color: #ffcc00;
+        color: #000;
+    }
+</style>

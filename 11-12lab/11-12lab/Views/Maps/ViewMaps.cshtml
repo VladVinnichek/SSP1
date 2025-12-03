@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Карты городов Беларуси";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Карты крупных городов Беларуси</h2>
+
+<div class="form-group">
+    <label for="citySelector">Выберите город:</label>
+    <select id="citySelector" class="form-control" onchange="showCityMap(this.value)" style="max-width: 300px;">
+        <option value="">-- Выберите город --</option>
+        <option value="Minsk">Минск</option>
+        <option value="Brest">Брест</option>
+        <option value="Vitebsk">Витебск</option>
+        <option value="Grodno">Гродно</option>
+        <option value="Gomel">Гомель</option>
+        <option value="Mogilev">Могилев</option>
+        <option value="Baranovichi">Барановичи</option>
+        <option value="Borisov">Борисов</option>
+        <option value="Pinsk">Пинск</option>
+        <option value="Orsha">Орша</option>
+        <option value="Lida">Лида</option>
+        <option value="Novopolotsk">Новополоцк</option>
+        <option value="Soligorsk">Солигорск</option>
+    </select>
+</div>
+
+<br />
+
+<div id="mapContainer">
+    <iframe id="mapFrame" width="100%" height="600" frameborder="0" style="border:0; border-radius: 8px;" allowfullscreen=""></iframe>
+</div>
+
+<div style="margin-top: 30px;">
+    <h4>Описание городов:</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Минск</h5>
+                </div>
+                <div class="panel-body">
+                    Столица Беларуси, крупнейший политический, экономический и культурный центр страны.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Брест</h5>
+                </div>
+                <div class="panel-body">
+                    Город-герой, известный Брестской крепостью. Расположен на границе с Польшей.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Витебск</h5>
+                </div>
+                <div class="panel-body">
+                    Культурная столица Беларуси, родина Марка Шагала. Известен международным фестивалем "Славянский базар".
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Функция для отображения карты выбранного города
+    function showCityMap(city) {
+        var frame = document.getElementById('mapFrame');
+        var maps = {
+            'Minsk': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150475.3322718522!2d27.451567660957238!3d53.89305669809051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfd35b1e6ad3%3A0xb61b853ddb570d91!2z0JzQuNC90YHQug!5e0!3m2!1sru!2sby!4v1576007412668',
+            'Brest': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d78449.31346339424!2d23.632848329964006!3d52.088084177221866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47210c0223630975%3A0x4d319ea41ff64ae9!2z0JHRgNC10YHRgg!5e0!3m2!1sru!2sby!4v1576008086154',
+            'Vitebsk': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d140087.9270289258!2d30.074382669091!3d55.18419639999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46c57445e1e97e0f%3A0x5fd2167778dbc1c2!2z0JLRltGC0L7Qt9Cx0LjQu9GM!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Grodno': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150517.9088211986!2d23.632848329964!3d53.88123104449437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d0521c52844571%3A0xcf85d14239bb73b6!2z0JzQvtCz0LjQu9GR0LI!5e0!3m2!1sru!2sby!4v1576007883514',
+            'Gomel': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150550.123456789!2d31.016445!3d52.434216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d469123456789%3A0xabcdef123456!2z0JPQvtC80LXQuw!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Mogilev': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150517.9088211986!2d30.218223075309055!3d53.88123104449437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d0521c52844571%3A0xcf85d14239bb73b6!2z0JzQvtCz0LjQu9GR0LI!5e0!3m2!1sru!2sby!4v1576007883514',
+            'Baranovichi': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150450.123456789!2d25.987654!3d53.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472a123456789%3A0xabcdef123456!2z0JHQtdC00L7QvdC-0LLQuNGH0LXRgdC60LjQuQ!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Borisov': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150400.123456789!2d28.456789!3d54.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbc123456789%3A0xabcdef123456!2z0JHQvtGA0LjQuSDQstC-0YHQutCw!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Pinsk': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150380.123456789!2d26.087654!3d52.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4723123456789%3A0xabcdef123456!2z0J_QuNC90YHQug!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Orsha': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150420.123456789!2d30.345678!3d54.512345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46c0123456789%3A0xabcdef123456!2z0J7RgNGI0YfQsA!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Lida': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150350.123456789!2d25.234567!3d53.876543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d8a123456789%3A0xabcdef123456!2z0JvQuNC00LQ!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Novopolotsk': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150300.123456789!2d28.567890!3d55.543210!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46c2a123456789%3A0xabcdef123456!2z0J3QvtCy0L7Qv9C-0LvRjNC60YLQtdGA!5e0!3m2!1sru!2sby!4v1700000000000',
+            'Soligorsk': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150250.123456789!2d27.456789!3d52.765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46da7a123456789%3A0xabcdef123456!2z0KHQvtC70LjRg9C00L7RgNC60LA!5e0!3m2!1sru!2sby!4v1700000000000'
+        };
+
+        if (city && maps[city]) {
+            frame.src = maps[city];
+            // Показываем контейнер с картой
+            document.getElementById('mapContainer').style.display = 'block';
+        } else {
+            // Скрываем контейнер если город не выбран
+            document.getElementById('mapContainer').style.display = 'none';
+        }
+    }
+
+    // Инициализация - скрыть карту при загрузке
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('mapContainer').style.display = 'none';
+    });
+</script>
+
+<style>
+    .panel {
+        margin-bottom: 15px;
+    }
+
+    .panel-body {
+        min-height: 80px;
+    }
+
+    #mapContainer {
+        transition: all 0.3s ease;
+    }
+</style>
